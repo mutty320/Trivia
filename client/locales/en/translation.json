@@ -1,0 +1,12 @@
+{
+    "welcome": "Welcome to the Trivia App!",
+    "startGame": "Start Game",
+    "nextQuestion": "Next Question",
+    "correctAnswer": "Correct!",
+    "wrongAnswer": "Wrong answer!",
+    "languageSelect": "Select Language",
+    "numberOfQuestions": "Number of Questions",
+    "difficulty": "Difficulty",
+    "category": "Category"
+  }
+  
