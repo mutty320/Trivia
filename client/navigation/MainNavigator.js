@@ -38,7 +38,10 @@ const MainNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="LandingPage">
-
+        
+        {/* Drawer Navigator Now Inside LandingPageMenu */}
+        <Stack.Screen name="LandingPageMenu" component={LandingPageMenu} options={{ headerShown: false }} />
+        
         {/* Game Screens */}
         <Stack.Screen name="LandingPage" component={LandingPage} />
         <Stack.Screen name="JoinOrCreate" component={JoinOrCreate} />
