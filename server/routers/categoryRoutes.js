@@ -1,5 +1,5 @@
 const express = require('express');
-const TriviaCategory = require('../models/triviaCategorySchema');
+const TriviaCategory = require('../models/CategorySchema');
 
 const router = express.Router();
 

@@ -1,6 +1,6 @@
 const express = require('express');
-const TriviaGame = require('../models/triviaGameSchema');
-const { User } = require('../models/userSchema');
+const TriviaGame = require('../models/GameSchema');
+const { User } = require('../models/UserSchema');
 const authMiddleware = require('../middleware/authMiddleware');
 
 const router = express.Router();

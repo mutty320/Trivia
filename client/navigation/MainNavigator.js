@@ -7,6 +7,7 @@ import LandingPage from '../screens/Game/LandingPage';
 import JoinOrCreate from '../screens/Game/JoinOrCreate';
 import CreateGame from '../screens/Game/CreateGame';
 import JoinGame from '../screens/Game/JoinGame';
+import WaitingRoom from '../screens/Game/WaitingRoom';
 import ActiveGame from '../screens/Game/ActiveGame';
 import CreatedConfirmation from '../screens/Game/CreatedConfirmation';
 import PlayOrCreate from '../screens/Game/PlayOrCreate';
@@ -47,6 +48,7 @@ const MainNavigator = () => {
         <Stack.Screen name="JoinOrCreate" component={JoinOrCreate} />
         <Stack.Screen name="CreateGame" component={CreateGame} />
         <Stack.Screen name="JoinGame" component={JoinGame} />
+        <Stack.Screen name="WaitingRoom" component={WaitingRoom} />
         <Stack.Screen name="ActiveGame" component={ActiveGame} />
         <Stack.Screen name="CreatedConfirmation" component={CreatedConfirmation} />
         <Stack.Screen name="PlayOrCreate" component={PlayOrCreate} />

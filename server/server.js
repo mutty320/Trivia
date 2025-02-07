@@ -27,16 +27,17 @@ mongoose.connect(mongoUrl, {})
 // Your Express routes
 // const signupRout = require('./routers/signup');
 
-const authRoutes = require('./routers/authRoutes');
-const triviaGameRoutes = require('./routers/triviaGameRoutes');
-const categoryRoutes = require('./routers/categoryRoutes');
-const freeTriviaRoutes = require('./routers/freeTriviaRoutes');
+const joinGame = require('./routers/joinGame');
+// const authRoutes = require('./routers/authRoutes');
+// const triviaGameRoutes = require('./routers/triviaGameRoutes');
+// const categoryRoutes = require('./routers/categoryRoutes');
+// const freeTriviaRoutes = require('./routers/freeTriviaRoutes');
 
-// app.use('/', signupRout); // Use your signup routes
-app.use('/auth', authRoutes);
-app.use('/trivia-games', triviaGameRoutes);
-app.use('/categories', categoryRoutes);
-app.use('/free-trivia', freeTriviaRoutes);
+app.use('/join', joinGame);
+// app.use('/auth', authRoutes);
+// app.use('/trivia-games', triviaGameRoutes);
+// app.use('/categories', categoryRoutes);
+// app.use('/free-trivia', freeTriviaRoutes);
 
 
 
