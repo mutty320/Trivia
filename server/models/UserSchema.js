@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true }, // Store the hashed password
   createdTriviaGames: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TriviaGame' }], // Associated trivia games - one-to-many relationship
-}, { discriminatorKey: 'userType' }); // Add a discriminator key to distinguish between user types
+}, { discriminatorKey: 'userType', timestamps: true }); // Add a discriminator key to distinguish between user types
 
 // 2. Create the base model
 const User = mongoose.model('User', UserSchema);

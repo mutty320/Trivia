@@ -2,115 +2,124 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const http = require('http'); // Import the HTTP module to create the server
-const { Server } = require('socket.io');
+const http = require('http'); // Import HTTP module
+const { initializeSocket, getIO } = require('../server/socket'); // ✅ Import socket helper
 require("dotenv").config(); 
 
-const app = express(); // Create an Express app
-
+const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware setup
-app.use(cors()); // Enable CORS to allow requests from React Native
-app.use(bodyParser.json()); // Parse incoming JSON data
+app.use(cors());
+app.use(bodyParser.json());
 
 // Connect to MongoDB
 const mongoUrl = process.env.MONGO_URL;
 mongoose.connect(mongoUrl, {})
-  .then(() => {
-    console.log("Connected to MongoDB Atlas");
-  })
-  .catch((err) => {
-    console.error("Error connecting to MongoDB Atlas", err);
-  });
+  .then(() => console.log("Connected to MongoDB Atlas"))
+  .catch((err) => console.error("Error connecting to MongoDB Atlas", err));
 
-// Your Express routes
-// const signupRout = require('./routers/signup');
+// Import models
+const TriviaGame = require('./models/GameSchema');
+
+// ✅ Create HTTP Server & Initialize WebSocket
+const server = http.createServer(app);
+const io = initializeSocket(server); // ✅ Now io is properly initialized
+
+// ✅ Import and use routers
+const myGamesRoutes = require('./routers/myGamesRoutes');
+app.use('/my-games', myGamesRoutes);
 
 const joinGame = require('./routers/joinGame');
-// const authRoutes = require('./routers/authRoutes');
-// const triviaGameRoutes = require('./routers/triviaGameRoutes');
-// const categoryRoutes = require('./routers/categoryRoutes');
-// const freeTriviaRoutes = require('./routers/freeTriviaRoutes');
-
 app.use('/join', joinGame);
-// app.use('/auth', authRoutes);
-// app.use('/trivia-games', triviaGameRoutes);
-// app.use('/categories', categoryRoutes);
-// app.use('/free-trivia', freeTriviaRoutes);
 
+const authRoutes = require('./routers/authRoutes');
+const protect = require('./middleware/authMiddleware');
 
+app.use('/auth', authRoutes);
 
-// Create an HTTP server to work with both Express and Socket.IO
-const server = http.createServer(app); // Create the HTTP server with the Express app
-
-// Initialize Socket.IO and attach it to the HTTP server
-const io = new Server(server, {
-  cors: {
-    origin: "*", // Allow all origins (adjust as needed for security)
-  },
+// Example of a protected route:
+app.get('/protected', protect, (req, res) => {
+  res.json({ message: `Welcome ${req.user.userType}!`, userId: req.user.userId });
 });
 
-// Store participants count for each room
-const participants = {};
+// ✅ Store game rooms & players in memory
+const gameRooms = {};
 
-// Set up Socket.IO logic
+// ✅ Handle WebSocket Connections
 io.on('connection', (socket) => {
   console.log('A user connected:', socket.id);
 
-  // Handle user joining a room
-  socket.on('joinRoom', (roomId) => {
-    socket.join(roomId);
+  // ✅ Player joins the waiting room
+  socket.on('joinRoom', async ({ gamePin, playerName }) => {
+    const game = await TriviaGame.findOne({ gamePin });
 
-    // Increment the participants count for the room
-    if (!participants[roomId]) {
-      participants[roomId] = 0;
+    if (!game) {
+      socket.emit('error', { message: 'Game not found' });
+      return;
     }
-    participants[roomId]++;
 
-    // Broadcast the updated participants count to the room
-    io.to(roomId).emit('participantsUpdate', participants[roomId]);
-    console.log(`User ${socket.id} joined room ${roomId}, Total participants: ${participants[roomId]}`);
+    socket.join(gamePin);
+
+    if (!gameRooms[gamePin]) {
+      gameRooms[gamePin] = { players: [], hasStarted: false, hostId: game.createdBy.toString() };
+    }
+
+    if (gameRooms[gamePin].hasStarted) {
+      socket.emit('error', { message: 'This game has already started!' });
+      return;
+    }
+
+    const playerId = `${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    gameRooms[gamePin].players.push({ playerId, playerName, socketId: socket.id });
+
+    io.to(gameRooms[gamePin].hostId).emit('updatePlayers', { players: gameRooms[gamePin].players });
+
+    socket.emit('waitingRoom', { message: 'Waiting for the host to start the game...', gamePin, playerId });
   });
 
-  // Handle sending questions to the room
-  socket.on('sendQuestion', (roomId, question) => {
-    console.log(`Broadcasting question to room ${roomId}: ${question}`);
-    io.to(roomId).emit('receiveQuestion', question);
+  // ✅ Host sends messages to players
+  socket.on('hostMessage', ({ gamePin, message }) => {
+    io.to(gamePin).emit('customMessage', { message });
   });
 
-  // Handle receiving answers from participants
-  socket.on('submitAnswer', (roomId, answer) => {
-    console.log(`Received answer from ${socket.id} in room ${roomId}: ${answer}`);
-    io.to(roomId).emit('receiveAnswer', { playerId: socket.id, answer });
+  // ✅ 🎮 Host Starts the Game (ADD THIS PART)
+  socket.on('startGame', ({ gamePin }) => {
+    if (!gameRooms[gamePin]) return;
+
+    console.log(`🎮 Host started game ${gamePin}`);
+
+    gameRooms[gamePin].hasStarted = true;
+
+    // ✅ Notify all players to go to ActiveGame
+    io.to(gamePin).emit('gameStarted', { message: 'Game is starting!' });
   });
 
-  // Handle user disconnection
+  // ✅ Host disconnect handling (Players get notified)
   socket.on('disconnect', () => {
     console.log(`User ${socket.id} disconnected`);
 
-    // Find the room(s) the user was in and decrement participants count
-    const rooms = Array.from(socket.rooms).slice(1); // Exclude the default room
-    rooms.forEach((roomId) => {
-      if (participants[roomId]) {
-        participants[roomId]--;
+    Object.keys(gameRooms).forEach((gamePin) => {
+      const room = gameRooms[gamePin];
+      room.players = room.players.filter(p => p.socketId !== socket.id);
 
-        // Broadcast the updated count to everyone in the room
-        io.to(roomId).emit('participantsUpdate', participants[roomId]);
-        console.log(`Updated participants in room ${roomId}: ${participants[roomId]}`);
+      if (socket.id === room.hostId) {
+        io.to(gamePin).emit('hostDisconnected', { message: 'The host has left the game. You can wait or leave.' });
+      }
 
-        // Clean up the room if no participants remain
-        if (participants[roomId] === 0) {
-          delete participants[roomId];
-        }
+      io.to(gamePin).emit('updatePlayers', { players: room.players });
+
+      if (room.players.length === 0) {
+        delete gameRooms[gamePin];
       }
     });
   });
 });
 
-// Start the server with both Express and Socket.IO
+// ✅ Start the server with both Express and Socket.IO
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-//to tun server node server.js
-// to run client npx expo start --web
+
+// To run server: node server.js
+// To run client: npx expo start --web

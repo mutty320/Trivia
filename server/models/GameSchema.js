@@ -14,7 +14,6 @@ const GameSchema = new mongoose.Schema({
     },
   ],
 
-  createdAt: { type: Date, default: Date.now },   
   isCustomGame: { type: Boolean, default: false }, 
   isPublic: { type: Boolean, default: true },  
   timesPlayed: { type: Number, default: 0 },     
@@ -30,7 +29,7 @@ const GameSchema = new mongoose.Schema({
 
   status: { type: String, enum: ['waiting', 'active', 'finished'], default: 'waiting' },
   gamePin: { type: String, required: true, unique: true },
-});
+}, { timestamps: true }); // ✅ Add timestamps here
 
 const TriviaGame = mongoose.model('TriviaGame', GameSchema);
 module.exports = TriviaGame;
