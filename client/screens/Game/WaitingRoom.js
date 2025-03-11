@@ -1,38 +1,50 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, FlatList, Alert } from 'react-native';
+import { View, Text, FlatList, Alert } from 'react-native';
 import { io } from 'socket.io-client';
 
-const socket = io('http://your-backend-url');
+const socket = io('http://localhost:5000');
 
 const WaitingRoom = ({ route, navigation }) => {
-  const { gamePin, playerId } = route.params;
+  const { gamePin } = route.params;
   const [players, setPlayers] = useState([]);
+  const [hostMessage, setHostMessage] = useState('');
+  const [hostDisconnected, setHostDisconnected] = useState(false);
 
   useEffect(() => {
-    //  Listen for updates when a new player joins
-    socket.on(`game_${gamePin}_update`, (data) => {
-      setPlayers(data.activePlayers);
+    socket.on('updatePlayers', (data) => {
+      setPlayers(data.players);
     });
 
-    //  Listen for when the game starts
-    socket.on(`game_${gamePin}_start`, (data) => {
+    socket.on('customMessage', (data) => {
+      setHostMessage(data.message);
+    });
+
+    socket.on('hostDisconnected', (data) => {
+      Alert.alert('Host Disconnected', data.message);
+      setHostDisconnected(true);
+    });
+
+    socket.on('gameStarted', () => {
       Alert.alert('Game is Starting!', 'Get ready!');
-      navigation.navigate('ActiveGame', { gameId: data.gameId, playerId });
+      navigation.navigate('ActiveGame');
     });
 
     return () => {
-      socket.off(`game_${gamePin}_update`);
-      socket.off(`game_${gamePin}_start`);
+      socket.off('updatePlayers');
+      socket.off('customMessage');
+      socket.off('hostDisconnected');
+      socket.off('gameStarted');
     };
   }, [gamePin]);
 
   return (
     <View>
-      <Text>Waiting for host to start the game...</Text>
-      <Text>Players in Room:</Text>
+      <Text>Waiting for game to start...</Text>
+      {hostMessage !== '' && <Text>Host Message: {hostMessage}</Text>}
+      {hostDisconnected && <Text style={{ color: 'red' }}>⚠️ The host has disconnected.</Text>}
       <FlatList
         data={players}
-        keyExtractor={(item) => item.playerId}
+        keyExtractor={item => item.playerId}
         renderItem={({ item }) => <Text>{item.playerName}</Text>}
       />
     </View>
