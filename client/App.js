@@ -1,9 +1,10 @@
-
-import React from 'react';
+import { AuthProvider } from './context/AuthContext';
 import MainNavigator from './navigation/MainNavigator';
 
 export default function App() {
   return (
-        <MainNavigator />
+    <AuthProvider>
+      <MainNavigator />
+    </AuthProvider>
   );
 }

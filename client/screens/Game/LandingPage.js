@@ -1,19 +1,39 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
-import DefaultOrCustom from '../GameSettings/DefaultOrCustom';
+import { useAuth } from '../../context/AuthContext'
 
 const LandingPage = () => {
   const navigation = useNavigation();
+  const { user } = useAuth();
+
+  const handleSinglePlayer = () => {
+    if (!user) {
+      Alert.alert('Unauthorized', 'Please sign in to play single player.');
+      navigation.replace('SignIn');
+      return;
+    }
+    navigation.navigate('DefaultOrCustom');
+  };
 
   return (
     <View>
       <Text>Landing Page</Text>
-      {/* ✅ Drawer Menu Button Now Works! */}
+      
+      {/* ✅ Drawer Menu Button - Always available */}
       <Button title="Open Profile Menu" onPress={() => navigation.openDrawer()} />
-      <Button title="Multiple players" onPress={() => navigation.navigate('JoinOrCreate')} />
-      <Button title="Single player" onPress={() => navigation.navigate('DefaultOrCustom')} />
+      
+      {/* ✅ Multiple Players - Always available */}
+      <Button 
+        title="Multiple players" 
+        onPress={() => navigation.navigate('JoinOrCreate')} 
+      />
+      
+      {/* ✅ Single Player - Block if not logged in */}
+      <Button 
+        title="Single player" 
+        onPress={handleSinglePlayer} 
+      />
     </View>
   );
 };

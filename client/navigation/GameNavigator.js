@@ -29,6 +29,7 @@ const Stack = createStackNavigator();
 
 const GameNavigator = () => (
   <Stack.Navigator initialRouteName="LandingPage">
+    {/* ✅ Game Screens */}
     <Stack.Screen name="LandingPage" component={LandingPage} />
     <Stack.Screen name="JoinOrCreate" component={JoinOrCreate} />
     <Stack.Screen name="CreateGame" component={CreateGame} />
@@ -38,14 +39,13 @@ const GameNavigator = () => (
     <Stack.Screen name="CreatedConfirmation" component={CreatedConfirmation} />
     <Stack.Screen name="PlayOrCreate" component={PlayOrCreate} />
 
-    {/* Auth Screens */}
-
+    {/* ✅ Auth Screens */}
     <Stack.Screen name="Logout" component={Logout} />
     <Stack.Screen name="SignIn" component={SignIn} />
     <Stack.Screen name="SignInOrSignUp" component={SignInOrSignUp} />
     <Stack.Screen name="SignUp" component={SignUp} />
 
-    {/* Game Settings Screens */}
+    {/* ✅ Game Settings Screens */}
     <Stack.Screen name="Category" component={Category} />
     <Stack.Screen name="Difficulty" component={Difficulty} />
     <Stack.Screen name="Timer" component={Timer} />

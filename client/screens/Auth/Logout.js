@@ -1,44 +1,18 @@
-import React, { useEffect } from 'react';
-import { View, Text, Button, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { View, Button } from 'react-native';
+import { useAuth } from '../../context/AuthContext';
 
-const Logout = () => {
-  const navigation = useNavigation();
+const Logout = ({ navigation }) => {
+  const { logout } = useAuth();
 
-  useEffect(() => {
-    // ✅ Show confirmation when opening Logout screen
-    Alert.alert(
-      "Log Out",
-      "Are you sure you want to log out?",
-      [
-        {
-          text: "Cancel",
-          style: "cancel",
-          onPress: () => navigation.goBack(), // ✅ Go back to previous screen if canceled
-        },
-        {
-          text: "Log Out",
-          onPress: () => handleLogout(),
-        },
-      ],
-      { cancelable: false }
-    );
-  }, []);
-
-  const handleLogout = () => {
-    // ✅ Clear user data (Adjust based on your auth system)
-    console.log("User logged out"); 
-
-    // ✅ Redirect to login screen
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "SignIn" }], // ✅ Change to the actual login screen name
-    });
+  const handleLogout = async () => {
+    await logout();
+    navigation.replace('SignIn');
   };
 
   return (
     <View>
-      <Text>Logging Out...</Text>
+      <Button title="Logout" onPress={handleLogout} />
     </View>
   );
 };
