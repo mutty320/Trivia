@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
 import { useAuth } from '../../context/AuthContext';
+import { useGoogleAuth } from '../../hooks/useGoogleAuth';
 
 const SERVER_URL = 'http://192.168.1.24:5000';
 
 const SignIn = ({ navigation }) => {
   const { login } = useAuth();
+  const { signInWithGoogle } = useGoogleAuth();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // ✅ Handle Email/Password Login
   const handleSignIn = async () => {
     if (!email || !password) {
       Alert.alert('Error', 'Please fill in all fields');
@@ -50,6 +54,16 @@ const SignIn = ({ navigation }) => {
     }
   };
 
+  // ✅ Handle Google Sign-In
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle();
+    } catch (error) {
+      console.error('❌ Google Sign-In Error:', error);
+      Alert.alert('Error', 'Google Sign-In failed');
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Sign In</Text>
@@ -80,6 +94,15 @@ const SignIn = ({ navigation }) => {
         disabled={loading}
         color="#6200EE"
       />
+
+      {/* ✅ Google Sign-In Button */}
+      <View style={styles.googleButton}>
+        <Button 
+          title="Sign in with Google" 
+          onPress={handleGoogleSignIn} 
+          color="#DB4437" // Google Red
+        />
+      </View>
 
       {/* ✅ Sign Up Link */}
       <Text 
@@ -133,6 +156,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 10,
     fontSize: 16,
+  },
+  googleButton: {
+    marginVertical: 20,
   },
 });
 
