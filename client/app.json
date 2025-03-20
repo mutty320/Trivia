@@ -16,12 +16,12 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.goldmax.triviaapp",
-      "googleServicesFile": "./ios/GoogleService-Info.plist"
+      "googleServicesFile": "./GoogleService-Info.plist"
 
     },
     "android": {
       "package": "com.goldmax.triviaapp",
-      "googleServicesFile": "./android/app/google-services.json",
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"

@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
 import { useAuth } from '../../context/AuthContext';
-import { signInWithGoogle } from '../../android/app/src/services/auth';
+import { useGoogleAuth } from '../../src/hooks/useGoogleAuth';
 
 const SERVER_URL = 'http://192.168.1.24:5000';
 
 const SignIn = ({ navigation }) => {
   const { login } = useAuth();
+  const { signInWithGoogle } = useGoogleAuth();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -31,15 +33,11 @@ const SignIn = ({ navigation }) => {
 
       if (response.ok) {
         console.log('✅ Login successful:', data);
-
-        // ✅ Wait until login completes and user state is set
         await login(data.token);
 
         console.log('✅ User set in context. Navigating...');
-        
-        // ✅ Ensure navigation only happens AFTER user state is updated
         setTimeout(() => {
-          navigation.replace('MainDrawer'); // ✅ Replace stack with main drawer
+          navigation.replace('MainDrawer');
         }, 0);
       } else {
         Alert.alert('Error', data.error || 'Login failed.');
@@ -57,8 +55,7 @@ const SignIn = ({ navigation }) => {
     try {
       const user = await signInWithGoogle();
       if (user) {
-        console.log('✅ Google sign-in successful:', user);
-        Alert.alert('Success', `Welcome ${user.displayName || user.email}!`);
+        console.log('✅ User signed in with Google:', user);
         navigation.replace('MainDrawer');
       }
     } catch (error) {
@@ -103,7 +100,7 @@ const SignIn = ({ navigation }) => {
         <Button 
           title="Sign in with Google" 
           onPress={handleGoogleSignIn} 
-          color="#DB4437" // Google Red
+          color="#DB4437"
         />
       </View>
 

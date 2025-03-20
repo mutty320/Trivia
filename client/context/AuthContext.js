@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect, useContext } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { jwtDecode } from 'jwt-decode';
 
-import 'dotenv/config';
+//import 'dotenv/config';
 
 const AuthContext = createContext();
 
