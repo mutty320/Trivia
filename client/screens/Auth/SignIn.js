@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
 import { useAuth } from '../../context/AuthContext';
-import { useGoogleAuth } from '../../hooks/useGoogleAuth';
+import { signInWithGoogle } from '../../android/app/src/services/auth';
 
 const SERVER_URL = 'http://192.168.1.24:5000';
 
 const SignIn = ({ navigation }) => {
   const { login } = useAuth();
-  const { signInWithGoogle } = useGoogleAuth();
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -57,7 +55,12 @@ const SignIn = ({ navigation }) => {
   // ✅ Handle Google Sign-In
   const handleGoogleSignIn = async () => {
     try {
-      await signInWithGoogle();
+      const user = await signInWithGoogle();
+      if (user) {
+        console.log('✅ Google sign-in successful:', user);
+        Alert.alert('Success', `Welcome ${user.displayName || user.email}!`);
+        navigation.replace('MainDrawer');
+      }
     } catch (error) {
       console.error('❌ Google Sign-In Error:', error);
       Alert.alert('Error', 'Google Sign-In failed');

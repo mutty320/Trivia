@@ -1,1 +1,54 @@
-{"installed":{"client_id":"908298948427-t30qpaqddbmlb5ln9ff1q2e9v7ltjrel.apps.googleusercontent.com","project_id":"triviaapp-454116","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs"}}
+{
+  "project_info": {
+    "project_number": "908298948427",
+    "project_id": "triviaapp-454116",
+    "storage_bucket": "triviaapp-454116.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:908298948427:android:27969851180412b0a4e2ce",
+        "android_client_info": {
+          "package_name": "com.goldmax.triviaapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "908298948427-t30qpaqddbmlb5ln9ff1q2e9v7ltjrel.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.goldmax.triviaapp",
+            "certificate_hash": "fd8083ea979ad8a8a289dc03b822a265e1510c32"
+          }
+        },
+        {
+          "client_id": "908298948427-54p5jvltutqi7ioj9bp83ifs4dj1v8bl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjDjxJtf_lzOqRw6xbI5upqi9MpKecQQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "908298948427-54p5jvltutqi7ioj9bp83ifs4dj1v8bl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "908298948427-0kbckmm81f335ebgr0krlmhvq43aeiga.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com..goldmax.triviaapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
