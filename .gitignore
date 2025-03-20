@@ -30,3 +30,7 @@ yarn-error.*
 **/node_modules
 **/.env
 **/.expo
+
+# Firebase config
+**/google-services.json
+**/GoogleService-Info.plist
