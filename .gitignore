@@ -34,3 +34,12 @@ yarn-error.*
 # Firebase config
 **/google-services.json
 **/GoogleService-Info.plist
+
+
+# Ignore all google-services.json files except the one in the correct location
+android/app/google-services.json
+!client/android/app/google-services.json
+
+# Ignore all plist files except the one in the correct location
+ios/TriviaApp/GoogleService-Info.plist
+!client/ios/TriviaApp/GoogleService-Info.plist

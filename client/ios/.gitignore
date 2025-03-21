@@ -27,4 +27,7 @@ project.xcworkspace
 *.jsbundle
 
 # CocoaPods
-/Pods/
+
+#/Pods/
+# Allow GoogleService-Info.plist to be tracked
+!TriviaApp/GoogleService-Info.plist
