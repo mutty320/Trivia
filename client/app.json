@@ -5,13 +5,7 @@
     "version": "1.0.0",
 
     "newArchEnabled": false,
-    "doctor": {
-      "reactNativeDirectoryCheck": {
-        "exclude": ["jwt-decode", "react-native-app-auth"],
-        "listUnknownPackages": false
-      }
-    },
-
+   
     "web": {
       "favicon": "./assets/favicon.png"
     },
