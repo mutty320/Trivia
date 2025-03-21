@@ -14,8 +14,6 @@
 		96905EF65AED1B983A6B3ABC /* libPods-TriviaApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-TriviaApp.a */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		E189B3AAC09D4A8694CECABE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4A0C53786AC74E98AB5A3865 /* GoogleService-Info.plist */; };
-		B6A1DF19C27D47CC8FAC5B98 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7881753FC8C845D4A45FB113 /* noop-file.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,9 +30,6 @@
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-TriviaApp/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		4A0C53786AC74E98AB5A3865 /* GoogleService-Info.plist */ = {isa = PBXFileReference; name = "GoogleService-Info.plist"; path = "TriviaApp/GoogleService-Info.plist"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = text.plist.xml; explicitFileType = undefined; includeInIndex = 0; };
-		7881753FC8C845D4A45FB113 /* noop-file.swift */ = {isa = PBXFileReference; name = "noop-file.swift"; path = "TriviaApp/noop-file.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
-		08F3F6BF7D354427BE839A5D /* TriviaApp-Bridging-Header.h */ = {isa = PBXFileReference; name = "TriviaApp-Bridging-Header.h"; path = "TriviaApp/TriviaApp-Bridging-Header.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,9 +54,6 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				4A0C53786AC74E98AB5A3865 /* GoogleService-Info.plist */,
-				7881753FC8C845D4A45FB113 /* noop-file.swift */,
-				08F3F6BF7D354427BE839A5D /* TriviaApp-Bridging-Header.h */,
 			);
 			name = TriviaApp;
 			sourceTree = "<group>";
@@ -201,8 +193,6 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				E189B3AAC09D4A8694CECABE /* GoogleService-Info.plist in Resources */,
-				096914099622490EB085D278 /* TriviaApp-Bridging-Header.h in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,7 +268,6 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
-				B6A1DF19C27D47CC8FAC5B98 /* noop-file.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,14 +295,11 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.goldmax.triviaapp";
-				PRODUCT_NAME = "TriviaApp";
+				PRODUCT_BUNDLE_IDENTIFIER = org.name.TriviaApp;
+				PRODUCT_NAME = TriviaApp;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				SWIFT_OBJC_BRIDGING_HEADER = TriviaApp/TriviaApp-Bridging-Header.h;
-				CODE_SIGN_ENTITLEMENTS = TriviaApp/TriviaApp.entitlements;
 			};
 			name = Debug;
 		};
@@ -333,13 +319,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.goldmax.triviaapp";
-				PRODUCT_NAME = "TriviaApp";
+				PRODUCT_BUNDLE_IDENTIFIER = org.name.TriviaApp;
+				PRODUCT_NAME = TriviaApp;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				SWIFT_OBJC_BRIDGING_HEADER = TriviaApp/TriviaApp-Bridging-Header.h;
-				CODE_SIGN_ENTITLEMENTS = TriviaApp/TriviaApp.entitlements;
 			};
 			name = Release;
 		};
