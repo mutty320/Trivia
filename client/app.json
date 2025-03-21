@@ -3,52 +3,9 @@
     "name": "TriviaApp",
     "slug": "triviaapp",
     "version": "1.0.0",
-    "scheme": "triviaapp",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    
     "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.goldmax.triviaapp",
-      "googleServicesFile": "./GoogleService-Info.plist"
-
-    },
-    "android": {
-      "package": "com.goldmax.triviaapp",
-      "googleServicesFile": "./google-services.json",
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "permissions": [
-        "INTERNET",           
-        "GET_ACCOUNTS",  
-        "USE_CREDENTIALS",
-        "ACCESS_NETWORK_STATE"
-      ],
-      "intentFilters": [
-        {
-          "action": "VIEW",
-          "data": [
-            {
-              "scheme": "https",
-              "host": "auth.expo.io",
-              "pathPrefix": "/@goldmax/triviaapp"
-            }
-          ],
-          "category": [
-            "BROWSABLE",
-            "DEFAULT"
-          ]
-        }
-      ]
-    },
+  
     "web": {
       "favicon": "./assets/favicon.png"
     },
@@ -60,9 +17,7 @@
         "projectId": "7093eb5c-9b9e-4a73-ae72-1eb18fa66b89"
       }
     },
-    "plugins": [
-      "expo-secure-store"
-    ],
+
     "owner": "goldmax"
   }
 }
