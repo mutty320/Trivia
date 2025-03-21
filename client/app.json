@@ -4,7 +4,7 @@
     "slug": "triviaapp",
     "version": "1.0.0",
     
-    "newArchEnabled": true,
+    "newArchEnabled": false,
   
     "web": {
       "favicon": "./assets/favicon.png"
