@@ -10,12 +10,14 @@
   },
   "expo": {
     "newArchEnabled": false,
-    "reactNativeDirectoryCheck": {
-      "exclude": [
-        "jwt-decode",
-        "react-native-app-auth"
-      ],
-      "listUnknownPackages": false
+    "doctor": {
+      "reactNativeDirectoryCheck": {
+        "exclude": [
+          "jwt-decode",
+          "react-native-app-auth"
+        ],
+        "listUnknownPackages": false
+      }
     }
   },
   "dependencies": {
