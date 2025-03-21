@@ -1,5 +1,6 @@
 import { GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
-import { auth } from '../../android/app/src/services/firebase';
+import { auth } from '../services/firebase'; // ✅ Import Firebase from the new file
+
 import * as Google from 'expo-auth-session/providers/google';
 import * as WebBrowser from 'expo-web-browser';
 import Constants from 'expo-constants';
@@ -24,7 +25,7 @@ export const useGoogleAuth = () => {
       if (result?.type === 'success') {
         const { id_token } = result.params;
 
-        // Exchange Google token for Firebase credential
+        // ✅ Exchange Google token for Firebase credential
         const credential = GoogleAuthProvider.credential(id_token);
         const userCredential = await signInWithCredential(auth, credential);
 
