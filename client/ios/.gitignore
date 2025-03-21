@@ -27,4 +27,8 @@ project.xcworkspace
 *.jsbundle
 
 # CocoaPods
-/Pods/
+Pods/
+
+# Allowlist for Firebase config files
+!TriviaApp/GoogleService-Info.plist
+

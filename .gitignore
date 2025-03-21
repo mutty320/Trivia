@@ -31,15 +31,12 @@ yarn-error.*
 **/.env
 **/.expo
 
-# Firebase config
-**/google-services.json
-**/GoogleService-Info.plist
+# Firebase config (REMOVE THESE LINES — they override the allowlist)
+# **/google-services.json
+# **/GoogleService-Info.plist
 
-
-# Ignore all google-services.json files except the one in the correct location
-android/app/google-services.json
+# Ignore all google-services.json files EXCEPT the one in the correct location
 !client/android/app/google-services.json
 
-# Ignore all plist files except the one in the correct location
-ios/TriviaApp/GoogleService-Info.plist
+# Ignore all plist files EXCEPT the one in the correct location
 !client/ios/TriviaApp/GoogleService-Info.plist
