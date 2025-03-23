@@ -8,26 +8,19 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": false,
-    "doctor": {
-      "reactNativeDirectoryCheck": {
-        "exclude": ["jwt-decode", "react-native-app-auth"],
-        "listUnknownPackages": false
-      }
-    },
-
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true,
+      "googleServicesFile": "./GoogleService-Info.plist",
       "bundleIdentifier": "com.goldmax.triviaapp",
-      "googleServicesFile": "./ios/TriviaApp/GoogleService-Info.plist"
+      "supportsTablet": true
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "package": "com.goldmax.triviaapp",
-      "googleServicesFile": "./android/app/google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -63,7 +56,27 @@
         "projectId": "7093eb5c-9b9e-4a73-ae72-1eb18fa66b89"
       }
     },
-    "plugins": ["expo-secure-store"],
+    "plugins": [
+
+      "expo-secure-store",
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 34,
+            "targetSdkVersion": 34,
+            "minSdkVersion": 21,
+            "buildToolsVersion": "34.0.0"
+          },
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
+    ],
+  
     "owner": "goldmax"
   }
 }
