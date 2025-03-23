@@ -49,6 +49,8 @@
       "favicon": "./assets/favicon.png"
     },
     "extra": {
+      "appAuthRedirectScheme": "triviaapp",
+
       "googleClientIdAndroid": "908298948427-t30qpaqddbmlb5ln9ff1q2e9v7ltjrel.apps.googleusercontent.com",
       "googleClientIdIos": "908298948427-0kbckmm81f335ebgr0krlmhvq43aeiga.apps.googleusercontent.com",
       "googleClientIdWeb": "908298948427-u5sbl0qm2g8i8a6ji95b2ef7gtk4h5u0.apps.googleusercontent.com",
@@ -67,7 +69,7 @@
           "android": {
             "compileSdkVersion": 34,
             "targetSdkVersion": 34,
-            "minSdkVersion": 21,
+            "minSdkVersion": 24,
             "buildToolsVersion": "34.0.0"
           },
           "ios": {
