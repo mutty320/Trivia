@@ -35,8 +35,6 @@ yarn-error.*
 # **/google-services.json
 # **/GoogleService-Info.plist
 
-# Ignore all google-services.json files EXCEPT the one in the correct location
-!client/android/app/google-services.json
 
-# Ignore all plist files EXCEPT the one in the correct location
-!client/ios/TriviaApp/GoogleService-Info.plist
+**/android
+**/ios
