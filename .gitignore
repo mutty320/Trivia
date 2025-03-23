@@ -36,5 +36,7 @@ yarn-error.*
 # **/GoogleService-Info.plist
 
 
+
 **/android
 **/ios
+!/home/mutty/Desktop/TriviaApp/client/android/gradlew
