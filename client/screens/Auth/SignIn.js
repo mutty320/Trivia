@@ -1,17 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
 import { useAuth } from '../../context/AuthContext';
 import { useGoogleAuth } from '../../src/hooks/useGoogleAuth';
 
-const SERVER_URL = 'http://192.168.1.24:5000';
+import { onAuthStateChanged } from 'firebase/auth';
+//import { auth } from '../../src/services/firebase';
+
+
+const SERVER_URL = 'http://localhost:5000';
 
 const SignIn = ({ navigation }) => {
   const { login } = useAuth();
-  const { signInWithGoogle } = useGoogleAuth();
+  //const { signInWithGoogle , isLoading} = useGoogleAuth();
+  const { signInWithGoogle, isLoading, error, user, auth } = useGoogleAuth();
+
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+
+
+  useEffect(() => {
+    //const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log('✅ User signed in with Google:', user);
+        navigation.replace('MainDrawer');
+      }
+  //  });
+    
+  //  return unsubscribe;
+
+  }, [user]);
 
   // ✅ Handle Email/Password Login
   const handleSignIn = async () => {
@@ -50,19 +69,35 @@ const SignIn = ({ navigation }) => {
     }
   };
 
-  // ✅ Handle Google Sign-In
+  //✅ Handle Google Sign-In
+  // const handleGoogleSignIn = async () => {
+  //   try {
+  //    // const user = 
+  //     await signInWithGoogle();
+
+  //     if (!isLoading && user) {
+  //       console.log('✅ User signed in with Google:', user);
+  //       navigation.replace('MainDrawer');
+  //       //navigation.replace('MainDrawerNavigator');
+  //     }
+  //   } catch (error) {
+  //     console.error('❌ Google Sign-In Error:', error);
+  //     Alert.alert('Error', 'Google Sign-In failed');
+  //   }
+  // };
   const handleGoogleSignIn = async () => {
     try {
-      const user = await signInWithGoogle();
-      if (user) {
-        console.log('✅ User signed in with Google:', user);
-        navigation.replace('MainDrawer');
-      }
+      // Just start the sign-in process
+      await signInWithGoogle();
+      
+      // The rest will be handled by the hook through Firebase auth state changes
+      // You might need to add a listener in your component or navigation
     } catch (error) {
       console.error('❌ Google Sign-In Error:', error);
       Alert.alert('Error', 'Google Sign-In failed');
     }
   };
+
 
   return (
     <View style={styles.container}>

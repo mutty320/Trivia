@@ -20,10 +20,6 @@
             "package_name": "com.goldmax.triviaapp",
             "certificate_hash": "fd8083ea979ad8a8a289dc03b822a265e1510c32"
           }
-        },
-        {
-          "client_id": "908298948427-54p5jvltutqi7ioj9bp83ifs4dj1v8bl.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
@@ -35,7 +31,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "908298948427-54p5jvltutqi7ioj9bp83ifs4dj1v8bl.apps.googleusercontent.com",
+              "client_id": "908298948427-u5sbl0qm2g8i8a6ji95b2ef7gtk4h5u0.apps.googleusercontent.com",
               "client_type": 3
             },
             {

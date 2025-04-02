@@ -1,6 +1,9 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+
+const admin = require('firebase-admin');
+
 const { User, Individual, Institution } = require('../models/UserSchema');
 require('dotenv').config();
 

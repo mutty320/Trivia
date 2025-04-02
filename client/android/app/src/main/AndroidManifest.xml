@@ -35,7 +35,9 @@
       </intent-filter>
       <intent-filter data-generated="true">
         <action android:name="android.intent.action.VIEW"/>
-        <data android:scheme="https" android:host="auth.expo.io" android:pathPrefix="/@goldmax/triviaapp"/>
+ <data android:scheme="com.goldmax.triviaapp" 
+          android:host="oauth2redirect" 
+          android:path="/google" /> 
         <data android:scheme="exp+triviaapp"/>
         <category android:name="android.intent.category.BROWSABLE"/>
         <category android:name="android.intent.category.DEFAULT"/>

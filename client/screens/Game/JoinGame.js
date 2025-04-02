@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert } from 'react-native';
 import { io } from 'socket.io-client';
 
-const SERVER_URL = 'http://192.168.1.24:5000';  // ✅ Use your PC's local IP
+const SERVER_URL = 'http://localhost:5000';  // ✅ Use your PC's local IP
 const socket = io(SERVER_URL, { transports: ['websocket'], autoConnect: true });
 
 const JoinGame = ({ navigation }) => {

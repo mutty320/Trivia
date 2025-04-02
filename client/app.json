@@ -2,83 +2,26 @@
   "expo": {
     "name": "TriviaApp",
     "slug": "triviaapp",
-    "version": "1.0.0",
-    "scheme": "triviaapp",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "newArchEnabled": false,
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "ios": {
-      "googleServicesFile": "./GoogleService-Info.plist",
-      "bundleIdentifier": "com.goldmax.triviaapp",
-      "supportsTablet": true
-    },
+    "scheme": "com.goldmax.triviaapp",
     "android": {
-      "googleServicesFile": "./google-services.json",
       "package": "com.goldmax.triviaapp",
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "permissions": [
-        "INTERNET",
-        "GET_ACCOUNTS",
-        "USE_CREDENTIALS",
-        "ACCESS_NETWORK_STATE"
-      ],
+      "googleServicesFile": "./google-services.json",
       "intentFilters": [
         {
           "action": "VIEW",
           "data": [
             {
-              "scheme": "https",
-              "host": "auth.expo.io",
-              "pathPrefix": "/@goldmax/triviaapp"
+              "scheme": "com.goldmax.triviaapp",
+              "host": "oauth2redirect",
+              "path": "/google"
             }
           ],
           "category": ["BROWSABLE", "DEFAULT"]
         }
       ]
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
     "extra": {
-      "appAuthRedirectScheme": "triviaapp",
-
-      "googleClientIdAndroid": "908298948427-t30qpaqddbmlb5ln9ff1q2e9v7ltjrel.apps.googleusercontent.com",
-      "googleClientIdIos": "908298948427-0kbckmm81f335ebgr0krlmhvq43aeiga.apps.googleusercontent.com",
-      "googleClientIdWeb": "908298948427-u5sbl0qm2g8i8a6ji95b2ef7gtk4h5u0.apps.googleusercontent.com",
-      "eas": {
-        "projectId": "7093eb5c-9b9e-4a73-ae72-1eb18fa66b89"
-      }
-    },
-    "plugins": [
-
-      "expo-secure-store",
-      "@react-native-firebase/app",
-      "@react-native-firebase/auth",
-      [
-        "expo-build-properties",
-        {
-          "android": {
-            "compileSdkVersion": 34,
-            "targetSdkVersion": 34,
-            "minSdkVersion": 24,
-            "buildToolsVersion": "34.0.0"
-          },
-          "ios": {
-            "useFrameworks": "static"
-          }
-        }
-      ]
-    ],
-  
-    "owner": "goldmax"
+      "googleClientIdAndroid": "908298948427-t30qpaqddbmlb5ln9ff1q2e9v7ltjrel.apps.googleusercontent.com"
+    }
   }
 }

@@ -94,7 +94,7 @@ android {
         versionCode 1
         versionName "1.0.0"
           manifestPlaceholders = [
-        appAuthRedirectScheme: "triviaapp"
+        appAuthRedirectScheme: "com.goldmax.triviaapp:/oauth2redirect/google"
     ]
     }
     signingConfigs {
