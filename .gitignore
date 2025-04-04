@@ -31,7 +31,7 @@ yarn-error.*
 **/.env
 **/.expo
 
-/home/mutty/Desktop/TriviaApp/server/triviaapp-454116-firebase-adminsdk-fbsvc-7d5ca28ce3.json
+server/triviaapp-454116-firebase-adminsdk-*.json
 # Firebase config (REMOVE THESE LINES — they override the allowlist)
 # **/google-services.json
 # **/GoogleService-Info.plist
