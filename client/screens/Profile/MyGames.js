@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, Button, Alert, TouchableOpacity, StyleSheet } from 'react-native';
 import socket from '../../services/socket';
 
-const SERVER_URL = 'http://localhost:5000';
+const SERVER_URL = 'http://192.168.1.24:5000';
 
 const MyGames = ({ navigation }) => {
   const [games, setGames] = useState([]);

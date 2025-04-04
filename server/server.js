@@ -123,3 +123,4 @@ server.listen(PORT, () => {
 
 // To run server: node server.js
 // To run client: npx expo start --web
+//run emulater - npx react-native run-android

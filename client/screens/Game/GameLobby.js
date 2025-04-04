@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Button, FlatList, Alert } from 'react-native';
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:5000');
+const socket = io('http://192.168.1.24:5000');
 
 const GameLobby = ({ route, navigation }) => {
   const { gameId } = route.params;
@@ -11,7 +11,7 @@ const GameLobby = ({ route, navigation }) => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    fetch(`http://localhost:5000/game/${gameId}`)
+    fetch(`http://192.168.1.24:5000/game/${gameId}`)
       .then(response => response.json())
       .then(data => setGame(data.game))
       .catch(error => Alert.alert('Error', 'Failed to load game details.'));

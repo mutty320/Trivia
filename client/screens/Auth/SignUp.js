@@ -3,7 +3,7 @@ import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker'; 
 import { useNavigation } from '@react-navigation/native';
 
-const SERVER_URL = 'http://localhost:5000';
+const SERVER_URL = 'http://192.168.1.24:5000';
 
 const SignUp = () => {
   const navigation = useNavigation();

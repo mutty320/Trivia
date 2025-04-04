@@ -3,6 +3,15 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const admin = require('firebase-admin');
+const serviceAccount = require('../triviaapp-454116-firebase-adminsdk-fbsvc-7d5ca28ce3.json')
+
+// Initialize Firebase Admin SDK (do this once, at the top level of your server code)
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+  });
+}
+
 
 const { User, Individual, Institution } = require('../models/UserSchema');
 require('dotenv').config();
@@ -87,4 +96,49 @@ router.post('/login', async (req, res) => {
   }
 });
 
+
+// New endpoint for Google authentication
+router.post('/google-auth', async (req, res) => {
+  console.log("in the google auth")
+  const { idToken } = req.body;
+
+  try {
+    // Verify the Firebase token
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const { uid, email, name, picture } = decodedToken;
+    
+    // Find or create user in your database
+    let user = await User.findOne({ email });
+    
+    if (!user) {
+      // Create a new user in your database
+      user = new User({
+        email,
+        username: name || email.split('@')[0],
+        userType: 'individual', // Default user type
+        googleId: uid,
+        profilePicture: picture || '',
+        // Don't set password for Google users
+      });
+      await user.save();
+    } else if (!user.googleId) {
+      // If existing user doesn't have googleId, update it
+      user.googleId = uid;
+      if (picture && !user.profilePicture) user.profilePicture = picture;
+      await user.save();
+    }
+
+    // Generate JWT token with your app's secret
+    const token = jwt.sign(
+      { userId: user._id, userType: user.userType },
+      JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+
+    res.json({ token, userId: user._id, username: user.username });
+  } catch (error) {
+    console.error('Google authentication error:', error);
+    res.status(401).json({ error: error.message || 'Invalid Google token' });
+  }
+});
 module.exports = router;

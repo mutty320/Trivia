@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, Alert } from 'react-native';
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:5000');
+const socket = io('http://192.168.1.24:5000');
 
 const WaitingRoom = ({ route, navigation }) => {
   const { gamePin } = route.params;

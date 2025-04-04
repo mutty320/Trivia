@@ -4,7 +4,12 @@ const UserSchema = new mongoose.Schema({
   
   username: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true }, // Store the hashed password
+  password: { type: String, required: false }, // Store the hashed password
+  
+  // New fields for Google Auth
+  googleId: { type: String },
+  profilePicture: { type: String },
+
   createdTriviaGames: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TriviaGame' }], // Associated trivia games - one-to-many relationship
 }, { discriminatorKey: 'userType', timestamps: true }); // Add a discriminator key to distinguish between user types
 
