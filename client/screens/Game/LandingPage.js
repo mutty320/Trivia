@@ -10,7 +10,7 @@ const LandingPage = () => {
   const handleSinglePlayer = () => {
     if (!user) {
       Alert.alert('Unauthorized', 'Please sign in to play single player.');
-      navigation.replace('SignIn');
+      navigation.replace('Login');
       return;
     }
     navigation.navigate('DefaultOrCustom');

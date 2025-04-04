@@ -21,7 +21,8 @@ import CreateQuestions from '../screens/GameSettings/CreateQuestions';
 import GameConfig from '../screens/GameSettings/GameConfig';
 
 import Logout from '../screens/Auth/Logout';
-import SignIn from '../screens/Auth/SignIn';
+import Login from '../screens/Auth/Login';
+import ForgotPassword from '../screens/Auth/ForgotPassword';
 import SignInOrSignUp from '../screens/Auth/SignInOrSignUp';
 import SignUp from '../screens/Auth/SignUp';
 
@@ -41,7 +42,8 @@ const GameNavigator = () => (
 
     {/* ✅ Auth Screens */}
     <Stack.Screen name="Logout" component={Logout} />
-    <Stack.Screen name="SignIn" component={SignIn} />
+    <Stack.Screen name="Login" component={Login} />
+    <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
     <Stack.Screen name="SignInOrSignUp" component={SignInOrSignUp} />
     <Stack.Screen name="SignUp" component={SignUp} />
 

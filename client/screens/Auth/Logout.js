@@ -34,7 +34,7 @@ const Logout = () => {
       await logout(); // ✅ Call the actual logout function from AuthContext
       navigation.reset({
         index: 0,
-        routes: [{ name: 'SignIn' }], // ✅ Navigate to SignIn after logout
+        routes: [{ name: 'Login' }], // ✅ Navigate to Login after logout
       });
     } catch (error) {
       console.error('Logout error:', error);

@@ -3,16 +3,14 @@ import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
 import { useAuth } from '../../context/AuthContext';
 import { useGoogleAuth } from '../../src/hooks/useGoogleAuth';
 
-
 import { onAuthStateChanged } from 'firebase/auth';
 //import { auth } from '../../src/services/firebase';
 
 
 const SERVER_URL = 'http://192.168.1.24:5000';
 
-const SignIn = ({ navigation }) => {
+const Login = ({ navigation }) => {
   const { login } = useAuth();
-  //const { signInWithGoogle , isLoading} = useGoogleAuth();
   const { signInWithGoogle, isLoading, error, auth } = useGoogleAuth();
 
 
@@ -29,7 +27,7 @@ const SignIn = ({ navigation }) => {
   //   }, [user]);
 
   // ✅ Handle Email/Password Login
-  const handleSignIn = async () => {
+  const handleLogIn = async () => {
     if (!email || !password) {
       Alert.alert('Error', 'Please fill in all fields');
       return;
@@ -83,7 +81,7 @@ const SignIn = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Sign In</Text>
+      <Text style={styles.title}>Welcome back!</Text>
 
       {/* ✅ Email Input */}
       <Text style={styles.label}>Email:</Text>
@@ -104,22 +102,31 @@ const SignIn = ({ navigation }) => {
         secureTextEntry 
       />
 
-      {/* ✅ Sign In Button */}
+      {/* ✅ Log In Button */}
       <Button 
-        title={loading ? 'Signing In...' : 'Sign In'}
-        onPress={handleSignIn}
+        title={loading ? 'Loging  In...' : 'Log in'}
+        onPress={handleLogIn}
         disabled={loading}
         color="#6200EE"
       />
 
+      {/* ✅ Forgot Password Link */}
+      <Text 
+        style={styles.link}
+        onPress={() => navigation.navigate('ForgotPassword')}
+      >
+        Forgot Password?
+      </Text>
+
       {/* ✅ Google Sign-In Button */}
       <View style={styles.googleButton}>
         <Button 
-          title="Sign in with Google" 
+          title="Log in with Google" 
           onPress={handleGoogleSignIn} 
           color="#DB4437"
         />
       </View>
+
 
       {/* ✅ Sign Up Link */}
       <Text 
@@ -129,13 +136,6 @@ const SignIn = ({ navigation }) => {
         Don't have an account? Sign Up
       </Text>
 
-      {/* ✅ Forgot Password Link */}
-      <Text 
-        style={styles.link}
-        onPress={() => navigation.navigate('ForgotPassword')}
-      >
-        Forgot Password?
-      </Text>
     </View>
   );
 };
@@ -179,4 +179,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignIn;
+export default Login;

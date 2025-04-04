@@ -20,7 +20,7 @@ const MainDrawerNavigator = ({ navigation }) => {
       // ✅ Only block protected routes — NOT LandingPage or GameNavigator
       if (!user && ['BillingInfo', 'PersonalInfo', 'MyGames'].includes(currentRoute)) {
         Alert.alert('Unauthorized', 'Please sign in to access this feature.');
-        navigation.replace('SignIn');
+        navigation.replace('Login');
       }
     });
 

@@ -115,6 +115,16 @@ const SignUp = () => {
 
       {/* ✅ Submit Button */}
       <Button title="Sign Up" onPress={handleSignUp} color="#6200EE" />
+
+
+      {/* ✅ LOg in Link */}
+        <Text 
+          style={styles.link}
+          onPress={() => navigation.navigate('Login')}
+        >
+        Already have an account? Log in        
+        </Text>
+        
     </View>
   );
 };
