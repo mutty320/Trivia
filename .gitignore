@@ -31,14 +31,13 @@ yarn-error.*
 **/.env
 **/.expo
 
-server/triviaapp-454116-firebase-adminsdk-*.json
 # Firebase config (REMOVE THESE LINES — they override the allowlist)
 # **/google-services.json
 # **/GoogleService-Info.plist
 
 
 
-# **/android
-# **/ios
-# !**/gradlew
-# !**/gradlew.bat
+**/android
+**/ios
+!**/gradlew
+!**/gradlew.bat
