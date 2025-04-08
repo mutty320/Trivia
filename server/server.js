@@ -50,50 +50,55 @@ const gameRooms = {};
 io.on('connection', (socket) => {
   console.log('A user connected:', socket.id);
 
-  // ✅ Player joins the waiting room
-  socket.on('joinRoom', async ({ gamePin, playerName }) => {
-    const game = await TriviaGame.findOne({ gamePin });
+// ✅ Player joins the waiting room
+socket.on('joinRoom', async ({ gamePin, playerId, playerName, hostId }) => {
+  const game = await TriviaGame.findOne({ gamePin });
 
-    if (!game) {
-      socket.emit('error', { message: 'Game not found' });
-      return;
-    }
+  if (!game) {
+    socket.emit('error', { message: 'Game not found' });
+    return;
+  }
 
-    socket.join(gamePin);
+  socket.join(gamePin);
 
-    if (!gameRooms[gamePin]) {
-      gameRooms[gamePin] = { players: [], hasStarted: false, hostId: game.createdBy.toString() };
-    }
+  if (!gameRooms[gamePin]) {
+    gameRooms[gamePin] = {
+      players: [],
+      hasStarted: false,
+      hostId // 👈 trust client to send logged-in user as host
+    };
+  }
 
-    if (gameRooms[gamePin].hasStarted) {
-      socket.emit('error', { message: 'This game has already started!' });
-      return;
-    }
+  if (gameRooms[gamePin].hasStarted) {
+    socket.emit('error', { message: 'This game has already started!' });
+    return;
+  }
 
-    const playerId = `${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-    gameRooms[gamePin].players.push({ playerId, playerName, socketId: socket.id });
+  gameRooms[gamePin].players.push({ playerId, playerName, socketId: socket.id });
 
-    io.to(gameRooms[gamePin].hostId).emit('updatePlayers', { players: gameRooms[gamePin].players });
+  io.to(gamePin).emit('updatePlayers', { players: gameRooms[gamePin].players });
 
-    socket.emit('waitingRoom', { message: 'Waiting for the host to start the game...', gamePin, playerId });
-  });
+  socket.emit('waitingRoom', { message: 'Waiting for the host to start the game...', gamePin, playerId });
+});
 
   // ✅ Host sends messages to players
   socket.on('hostMessage', ({ gamePin, message }) => {
     io.to(gamePin).emit('customMessage', { message });
   });
 
-  // ✅ 🎮 Host Starts the Game (ADD THIS PART)
-  socket.on('startGame', ({ gamePin }) => {
-    if (!gameRooms[gamePin]) return;
+// ✅ 🎮 Host Starts the Game
+socket.on('startGame', ({ gamePin, hostId }) => {
+  const room = gameRooms[gamePin];
+  if (!room) return;
 
-    console.log(`🎮 Host started game ${gamePin}`);
+  if (hostId !== room.hostId) {
+    socket.emit('error', { message: 'Only the host can start the game.' });
+    return;
+  }
 
-    gameRooms[gamePin].hasStarted = true;
-
-    // ✅ Notify all players to go to ActiveGame
-    io.to(gamePin).emit('gameStarted', { message: 'Game is starting!' });
-  });
+  room.hasStarted = true;
+  io.to(gamePin).emit('gameStarted', { message: 'Game is starting!' });
+});
 
   // ✅ Host disconnect handling (Players get notified)
   socket.on('disconnect', () => {

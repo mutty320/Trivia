@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Button, Alert, TouchableOpacity, StyleSheet } from 'react-native';
-import socket from '../../services/socket';
+import { View, Text, FlatList, Alert, TouchableOpacity, StyleSheet } from 'react-native';
+import { useAuth } from '../../context/AuthContext';
 
 const SERVER_URL = 'http://192.168.1.24:5000';
 
 const MyGames = ({ navigation }) => {
   const [games, setGames] = useState([]);
-  const [selectedGame, setSelectedGame] = useState(null);
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -29,20 +29,31 @@ const MyGames = ({ navigation }) => {
   }, []);
 
   const handleSelectGame = (game) => {
-    setSelectedGame(game); // ✅ Store the selected game
-  };
-
-  const handleStartGame = () => {
-    if (!selectedGame) {
-      Alert.alert('Select a game first.');
-      return;
-    }
-
-    console.log("✅ Host starting game:", selectedGame);
-    socket.emit('startGame', { gamePin: selectedGame.gamePin });
-
-    // ✅ Pass the entire `game` object to ActiveGame
-    navigation.navigate('ActiveGame', { game: selectedGame });
+    Alert.alert(
+      'What would you like to do?',
+      `Game: ${game.gameName}`,
+      [
+        {
+          text: 'Host Multiplayer',
+          onPress: () => {
+            navigation.navigate('GameLobby', {
+              gameId: game._id,
+              gamePin: game.gamePin,
+              hostId: user.userId
+            });
+          }
+        },
+        {
+          text: 'Play Solo',
+          onPress: () => {
+            navigation.navigate('ActiveGame', {
+              game
+            });
+          }
+        },
+        { text: 'Cancel', style: 'cancel' }
+      ]
+    );
   };
 
   return (
@@ -56,17 +67,12 @@ const MyGames = ({ navigation }) => {
           data={games}
           keyExtractor={(item) => item._id}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => handleSelectGame(item)} style={[
-              styles.gameItem,
-              selectedGame?._id === item._id ? styles.selectedGame : null // ✅ Highlight selection
-            ]}>
+            <TouchableOpacity onPress={() => handleSelectGame(item)} style={styles.gameItem}>
               <Text style={styles.gameName}>{item.gameName}</Text>
             </TouchableOpacity>
           )}
         />
       )}
-
-      <Button title="Start Game" onPress={handleStartGame} disabled={!selectedGame} />
     </View>
   );
 };
@@ -80,9 +86,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f0f0',
     marginVertical: 5,
     borderRadius: 5,
-  },
-  selectedGame: {
-    backgroundColor: '#74b9ff', // ✅ Highlight selected game
   },
   gameName: { fontSize: 18 },
 });

@@ -7,33 +7,38 @@ const LandingPage = () => {
   const navigation = useNavigation();
   const { user } = useAuth();
 
-  const handleSinglePlayer = () => {
-    if (!user) {
-      Alert.alert('Unauthorized', 'Please sign in to play single player.');
-      navigation.replace('Login');
-      return;
-    }
-    navigation.navigate('DefaultOrCustom');
-  };
+
 
   return (
     <View>
       <Text>Landing Page</Text>
       
-      {/* ✅ Drawer Menu Button - Always available */}
-      <Button title="Open Profile Menu" onPress={() => navigation.openDrawer()} />
-      
-      {/* ✅ Multiple Players - Always available */}
-      <Button 
-        title="Multiple players" 
-        onPress={() => navigation.navigate('JoinOrCreate')} 
-      />
       
       {/* ✅ Single Player - Block if not logged in */}
       <Button 
         title="Single player" 
-        onPress={handleSinglePlayer} 
+        onPress={() => navigation.navigate('JoinOrPlay')} 
       />
+
+      <Button
+        title="Host multiple players"
+        onPress={() => {
+          if (!user) {
+            Alert.alert('Sign in required', 'Please sign in to host a game.');
+            navigation.replace('Login');
+          } else {
+            navigation.navigate('HostGame');
+          }
+        }}
+      />
+
+      {/* ✅  create a new game 
+      <Button 
+        title="Create game" 
+        onPress={() => navigation.navigate('CreateGame')} 
+      />
+      */}
+      
     </View>
   );
 };

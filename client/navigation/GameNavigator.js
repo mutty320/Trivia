@@ -3,13 +3,15 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 // Import Game Screens
 import LandingPage from '../screens/Game/LandingPage';
-import JoinOrCreate from '../screens/Game/JoinOrCreate';
+import JoinOrPlay from '../screens/Game/JoinOrPlay';
 import CreateGame from '../screens/Game/CreateGame';
-import JoinGame from '../screens/Game/JoinGame';
+import JoinWithPin from '../screens/Game/JoinWithPin';
 import WaitingRoom from '../screens/Game/WaitingRoom';
 import ActiveGame from '../screens/Game/ActiveGame';
 import CreatedConfirmation from '../screens/Game/CreatedConfirmation';
-import PlayOrCreate from '../screens/Game/PlayOrCreate';
+import GameSettings from '../screens/Game/GameSettings';
+import GameLobby from '../screens/Game/GameLobby';
+import HostGame from '../screens/Game/HostGame';
 
 // Game Settings Screens
 import Category from '../screens/GameSettings/Category';
@@ -32,13 +34,15 @@ const GameNavigator = () => (
   <Stack.Navigator initialRouteName="LandingPage">
     {/* ✅ Game Screens */}
     <Stack.Screen name="LandingPage" component={LandingPage} />
-    <Stack.Screen name="JoinOrCreate" component={JoinOrCreate} />
+    <Stack.Screen name="JoinOrPlay" component={JoinOrPlay} />
     <Stack.Screen name="CreateGame" component={CreateGame} />
-    <Stack.Screen name="JoinGame" component={JoinGame} />
+    <Stack.Screen name="JoinWithPin" component={JoinWithPin} />
     <Stack.Screen name="WaitingRoom" component={WaitingRoom} />
     <Stack.Screen name="ActiveGame" component={ActiveGame} />
     <Stack.Screen name="CreatedConfirmation" component={CreatedConfirmation} />
-    <Stack.Screen name="PlayOrCreate" component={PlayOrCreate} />
+    <Stack.Screen name="GameSettings" component={GameSettings} />
+    <Stack.Screen name="GameLobby" component={GameLobby} />
+    <Stack.Screen name="HostGame" component={HostGame} />
 
     {/* ✅ Auth Screens */}
     <Stack.Screen name="Logout" component={Logout} />

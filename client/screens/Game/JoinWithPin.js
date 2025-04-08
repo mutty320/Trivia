@@ -5,7 +5,7 @@ import { io } from 'socket.io-client';
 const SERVER_URL = 'http://192.168.1.24:5000';  // ✅ Use your PC's local IP
 const socket = io(SERVER_URL, { transports: ['websocket'], autoConnect: true });
 
-const JoinGame = ({ navigation }) => {
+const JoinWithPin = ({ navigation }) => {
   const [gamePin, setGamePin] = useState('');
   const [playerName, setPlayerName] = useState('');
 
@@ -26,7 +26,7 @@ const JoinGame = ({ navigation }) => {
       if (response.ok) {  
         console.log("🎉 Success! Navigating to Waiting Room...");
         Alert.alert('Success', 'Joined the game!');
-        socket.emit('joinGame', { gamePin, playerId: data.playerId, playerName });
+        socket.emit('joinRoom', { gamePin, playerId: data.playerId, playerName });
         navigation.navigate('WaitingRoom', { gamePin, playerId: data.playerId });
       } else {
         console.log("❌ Server returned an error:", data.error);
@@ -49,4 +49,4 @@ const JoinGame = ({ navigation }) => {
   );
 };
 
-export default JoinGame;
+export default JoinWithPin;
